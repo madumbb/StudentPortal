@@ -1,0 +1,23 @@
+{% extends "portal/base.html" %}
+{% block content %}
+<div class="card">
+    <h2> All Registered Students</h2>
+    {% if students %}
+    <table>
+        <thead><tr><th>#</th><th>Student ID</th><th>Name</th><th>English</th><th>Math</th><th>Science</th><th>Date Registered</th></tr></thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td>{{ forloop.counter }}</td><td>{{ s.student_id }}</td><td>{{ s.name }}</td>
+                <td>{{ s.english_grade }}</td><td>{{ s.math_grade }}</td><td>{{ s.science_grade }}</td>
+                <td>{{ s.date_registered|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p style="margin-top:10px; color:gray; font-size:13px;">Total: {{ students|length }} student(s)</p>
+    {% else %}
+    <p style="color:gray;">No students registered yet. <a href="/register/">Register one now</a></p>
+    {% endif %}
+</div>
+{% endblock %}

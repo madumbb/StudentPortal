@@ -1,0 +1,58 @@
+{% extends "portal/base.html" %}
+{% block content %}
+<div class="card">
+    <h2> Register New Student</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                <label>Student ID Number *</label>
+                <input type="text" name="student_id" placeholder="e.g. 2024-0001" required>
+            </div>
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" name="name" placeholder="e.g. Juan Dela Cruz" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Password *</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+        </div>
+        <p style="font-weight:bold; margin-bottom:10px; color:#2c3e50;"> Grades (0-100)</p>
+        <div class="form-row">
+            <div class="form-group">
+                <label>English</label>
+                <input type="number" name="english_grade" placeholder="e.g. 90" min="0" max="100" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label>Mathematics</label>
+                <input type="number" name="math_grade" placeholder="e.g. 85" min="0" max="100" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label>Science</label>
+                <input type="number" name="science_grade" placeholder="e.g. 88" min="0" max="100" step="0.01" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register Student</button>
+    </form>
+</div>
+<div class="card">
+    <h2> Registered Students (Confirmation)</h2>
+    {% if students %}
+    <table>
+        <thead><tr><th>Student ID</th><th>Name</th><th>English</th><th>Math</th><th>Science</th><th>Date Registered</th></tr></thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.student_id }}</td><td>{{ s.name }}</td>
+                <td>{{ s.english_grade }}</td><td>{{ s.math_grade }}</td><td>{{ s.science_grade }}</td>
+                <td>{{ s.date_registered|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color:gray;">No students registered yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

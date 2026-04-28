@@ -1,0 +1,23 @@
+{% extends "portal/base.html" %}
+{% block content %}
+<div class="card">
+    <h2> Student Reports and History</h2>
+    {% if reports %}
+    <table>
+        <thead><tr><th>#</th><th>Student ID</th><th>Student Name</th><th>Message</th><th>Date Sent</th></tr></thead>
+        <tbody>
+            {% for r in reports %}
+            <tr>
+                <td>{{ forloop.counter }}</td><td>{{ r.student.student_id }}</td>
+                <td>{{ r.student.name }}</td><td>{{ r.message }}</td>
+                <td>{{ r.date_sent|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p style="margin-top:10px; color:gray; font-size:13px;">Total: {{ reports|length }} report(s)</p>
+    {% else %}
+    <p style="color:gray;">No reports submitted yet. Students send reports from the desktop app.</p>
+    {% endif %}
+</div>
+{% endblock %}
